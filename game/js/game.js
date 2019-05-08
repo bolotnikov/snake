@@ -79,6 +79,7 @@ let game = {
         this.width = Math.max(this.width, data.minWidth);
         this.height = Math.floor(this.width * data.realHeight / data.realWidth);
         this.canvas.style.height = "100%";
+        console.log(this.width, this.height);
     },
     init() {
         this.canvas = document.getElementById("mycanvas");
@@ -100,7 +101,6 @@ let game = {
                 callback();
             }
         };
-
         this.preloadSprites(onResourceLoad);
         this.preloadSounds(onResourceLoad);
     },
@@ -117,6 +117,9 @@ let game = {
             this.sprites[key].src = "img/" + key + ".png";
             this.sprites[key].addEventListener("load", onResourceLoad);
         }
+    },
+    onImageClick(e) {
+        console.log(e);
     },
     create() {
         this.board.create();

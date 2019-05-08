@@ -1,21 +1,27 @@
 let game = {
     canvas: null,
     ctx: null,
+    board: null,
+    width: 640,
+    height: 360,
     sprites: {
         background: null,
         cell: null,
     },
     start() {
-        this.canvas = document.getElementById("mycanvas");
-        this.ctx = this.canvas.getContext("2d");
-
+        this.init();
         this.preload(() => {
             this.run();
         });
     },
+    init() {
+        this.canvas = document.getElementById("mycanvas");
+        this.ctx = this.canvas.getContext("2d");
+    },
     preload(callback) {
         let loaded = 0;
-        let required = 2;
+        let required = Object.keys(this.sprites).length;
+
         let onAssetLoad = () => {
             ++loaded;
 
@@ -30,9 +36,11 @@ let game = {
         }
     },
     run() {
+        this.board.create();
+        
         window.requestAnimationFrame(() => {
             this.ctx.drawImage(this.sprites.background, 0, 0);
-            this.ctx.drawImage(this.sprites.cell, 320, 180);
+            this.board.render();
         });
     }
 };
